@@ -66,7 +66,7 @@ jobs:
       
       run: |
           if [ "${{ env.destroy }}" == "false" ]; then
-            terraform apply -var-file="execution.tfvars"
+            terraform apply -var-file="execution.tfvars" -auto-approve
           elif [ "${{ env.destroy }}" == "true" ]; then
             terraform destroy -auto-approve
           else
