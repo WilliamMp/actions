@@ -30,3 +30,6 @@ jobs:
 
     - name: Terraform Plan
       run: terraform plan -var-file="execution.tfvars"
+      
+    - name: Terraform Apply
+      run: terraform apply -var-file="execution.tfvars"
