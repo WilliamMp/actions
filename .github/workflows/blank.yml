@@ -18,6 +18,12 @@ jobs:
       with:
         terraform_version: 1.0.0
 
+    - name: Read .yml file
+      id: read-yml
+      run: |
+        value=$(yq e '.detroy' destroy.yml)
+        echo "detroy=$value" >> $GITHUB_ENV
+
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
@@ -29,7 +35,24 @@ jobs:
       run: terraform init
 
     - name: Terraform Plan
-      run: terraform plan -var-file="execution.tfvars"
+      run: |
+          if [ "${{ env.destroy }}" == "false" ]; then
+            terraform plan -var-file="execution.tfvars"
+          elif [ "${{ env.action }}" == "true" ]; then
+            terraform plan -destroy
+          else
+            echo "Action not recognized. No Terraform action taken."
+          fi
+      # run: terraform plan -var-file="execution.tfvars"
       
-    - name: Terraform Apply
-      run: terraform apply -var-file="execution.tfvars" -auto-approve
+    # - name: Terraform Apply
+      
+    #   run: |
+    #       if [ "${{ env.destroy }}" == "false" ]; then
+    #         terraform apply -var-file="execution.tfvars"
+    #       elif [ "${{ env.action }}" == "true" ]; then
+    #         terraform destroy -auto-approve
+    #       else
+    #         echo "Action not recognized. No Terraform action taken."
+    #       fi
+    #   # run: terraform apply -var-file="execution.tfvars" -auto-approve
