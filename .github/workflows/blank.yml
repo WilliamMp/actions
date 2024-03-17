@@ -31,6 +31,23 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: us-east-1
 
+    - name: Create S3 Bucket
+      run: |
+        aws s3 mb s3://bucket_tf_state --region us-east-1
+
+    - name: Setup Terraform Backend Configuration
+      run: |
+        cat > backend.tf << EOF
+        terraform {
+          backend "s3" {
+            bucket         = "bucket_tf_state"
+            key            = "bucket_tf_state/terraform.tfstate"
+            region         = "sua-regiao-s3"
+            encrypt        = true
+          }
+        }
+        EOF
+        
     - name: Terraform Init
       run: terraform init
 
