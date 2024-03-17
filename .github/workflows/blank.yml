@@ -39,7 +39,7 @@ jobs:
           if [ "${{ env.destroy }}" == "false" ]; then
             terraform plan -var-file="execution.tfvars"
           elif [ "${{ env.destroy }}" == "true" ]; then
-            terraform plan -var-file="execution.tfvars"  -destroy
+            terraform destroy
           else
             echo "Action not recognized. No Terraform action taken."
           fi
