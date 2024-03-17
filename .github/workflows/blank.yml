@@ -40,9 +40,9 @@ jobs:
         cat > backend.tf << EOF
         terraform {
           backend "s3" {
-            bucket         = "bucket_tf_state"
-            key            = "bucket_tf_state/terraform.tfstate"
-            region         = "sua-regiao-s3"
+            bucket         = "pandarium-fiapfood"
+            key            = "pandarium-fiapfood/terraform.tfstate"
+            region         = "us-east-1"
             encrypt        = true
           }
         }
