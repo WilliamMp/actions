@@ -38,7 +38,7 @@ jobs:
       run: |
           if [ "${{ env.destroy }}" == "false" ]; then
             terraform plan -var-file="execution.tfvars"
-          elif [ "${{ env.action }}" == "true" ]; then
+          elif [ "${{ env.destroy }}" == "true" ]; then
             terraform plan -destroy
           else
             echo "Action not recognized. No Terraform action taken."
@@ -50,7 +50,7 @@ jobs:
     #   run: |
     #       if [ "${{ env.destroy }}" == "false" ]; then
     #         terraform apply -var-file="execution.tfvars"
-    #       elif [ "${{ env.action }}" == "true" ]; then
+    #       elif [ "${{ env.destroy }}" == "true" ]; then
     #         terraform destroy -auto-approve
     #       else
     #         echo "Action not recognized. No Terraform action taken."
