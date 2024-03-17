@@ -78,7 +78,7 @@ jobs:
       
       run: |
           if [ "${{ env.destroy }}" == "true" ]; then
-            terraform destroy
+            terraform destroy -auto-approve  -refresh=false
             echo "Rodando o apply"
           else
             echo "Action not recognized. No Terraform action taken."
