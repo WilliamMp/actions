@@ -75,3 +75,15 @@ jobs:
             echo "Action not recognized. No Terraform action taken."
           fi
       # run: terraform apply -var-file="execution.tfvars" -auto-approve
+
+
+    - name: Terraform destroy
+      
+      run: |
+          if [ "${{ env.destroy }}" == "true" ]; then
+            terraform destroy -auto-approve
+            echo "Rodando o apply"
+          else
+            echo "Action not recognized. No Terraform action taken."
+          fi
+      # run: terraform apply -var-file="execution.tfvars" -auto-approve
